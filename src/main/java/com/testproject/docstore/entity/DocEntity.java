@@ -1,0 +1,86 @@
+package com.testproject.docstore.entity;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+
+@Entity
+@Table(name = "document")
+public class DocEntity implements Serializable {
+
+    @Id
+    @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid-generator")
+    private String id;
+
+    private String name;
+
+    private String extension;
+
+    private long size;
+
+    @OneToOne(mappedBy = "docEntity",cascade = CascadeType.ALL)
+    private MetadataEntity metadataEntity;
+
+    public DocEntity() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public MetadataEntity getMetadataEntity() {
+        return metadataEntity;
+    }
+
+    public void setMetadataEntity(MetadataEntity metadataEntity) {
+        this.metadataEntity = metadataEntity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocEntity entity = (DocEntity) o;
+        return size == entity.size &&
+                Objects.equals(id, entity.id) &&
+                Objects.equals(name, entity.name) &&
+                Objects.equals(extension, entity.extension);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, extension, size);
+    }
+}
