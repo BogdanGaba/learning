@@ -7,7 +7,9 @@
 <div style="text-align: center">
     <h2>Files list</h2>
     <div style="max-width: 95%; max-height: 80%; border: black solid thin;">
-
+        <div th:each="f: ${files} ">
+            <div th:text="${f.name}">+++++</div>
+        </div>
     </div>
     <a href="/upload">Upload new file</a>
 </div>

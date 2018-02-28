@@ -1,8 +1,6 @@
 package com.testproject.docstore.controller;
 
-import com.testproject.docstore.dto.DocDTO;
-import com.testproject.docstore.dto.MetadataDTO;
-import com.testproject.docstore.service.FileService;
+import com.testproject.docstore.service.DocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("upload")
 public class FileUploadController {
 
-    private FileService fileService;
+    private DocService docService;
 
     @GetMapping
     public String upload() {
@@ -27,20 +25,12 @@ public class FileUploadController {
                            @RequestParam("name") String name,
                            @RequestParam("description") String description) {
 
-        DocDTO dto = new DocDTO();
-        dto.setName(name);
-        dto.setSize(file.getSize());
-
-        MetadataDTO metadataDTO = new MetadataDTO();
-        metadataDTO.setDescription(description);
-        dto.setMetadata(metadataDTO);
-//TODO move dto building to service
-        fileService.saveDocument(dto);
+        docService.saveDocument(name, null, file.getSize(), description);
         return "upload";
     }
 
     @Autowired
-    public void setFileService(FileService fileService) {
-        this.fileService = fileService;
+    public void setDocService(DocService docService) {
+        this.docService = docService;
     }
 }
