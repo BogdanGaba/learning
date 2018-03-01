@@ -45,8 +45,11 @@ public class DocServiceImpl implements DocService {
         docEntity.setSize(size);
 
         MetadataEntity metadataEntity = new MetadataEntity();
+
         metadataEntity.setDocEntity(docEntity);
+        docEntity.setMetadataEntity(metadataEntity);
         metadataEntity.setDescription(description);
+
 
         return docEntity;
     }

@@ -23,11 +23,7 @@ public class DocumentDAOImpl implements DocumentDAO {
 
     @Override
     public List<DocEntity> getAll() {
-        DocEntity doc = new DocEntity();
-        doc.setName("qwerty");
-        doc.setMetadataEntity(new MetadataEntity());
-        return asList(doc);
-//        return new ArrayList<>();
+        return sessionFactory.getCurrentSession().createCriteria(DocEntity.class).list();
     }
 
     @Override
@@ -47,6 +43,7 @@ public class DocumentDAOImpl implements DocumentDAO {
 
     @Override
     public void removeById(String id) {
-        sessionFactory.getCurrentSession().delete(id);
+        sessionFactory.getCurrentSession()
+                .delete(sessionFactory.getCurrentSession().load(DocEntity.class, id));
     }
 }
