@@ -10,6 +10,7 @@
         <table style="width:100%">
             <tr>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Size</th>
                 <th>Description</th>
                 <th th:text="${test}"></th>
@@ -17,6 +18,7 @@
         <div th:each="doc : ${docs}">
             <tr>
                 <td th:text="${doc.name}"></td>
+                <td th:text="${doc.extension}"></td>
                 <td th:text="${doc.size}"></td>
                 <td th:text="${doc.metadata.description}"></td>
                 <td><a th:href="@{delete(id=${doc.id})}">delete</a></td>

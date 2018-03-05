@@ -19,8 +19,13 @@ public class DocServiceImpl implements DocService {
     private DocumentDAO documentDAO;
 
     @Override
-    public void saveDocument(String name,String extension,  long size, String description) {
-        documentDAO.save(buildEntity(name, extension,size,description));
+    public DocDTO getById(String id) {
+        return documentDAO.getById(id).map(DocConverter::toDocDTO).get();
+    }
+
+    @Override
+    public void saveDocument(String storageId, String name, String originalName, long size, String description) {
+        documentDAO.save(buildEntity(storageId, name, getExtension(originalName), size, description));
     }
 
     @Override
@@ -30,7 +35,7 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public List<DocDTO> getAll() {
-       return documentDAO.getAll().stream().map(DocConverter::toDocDTO).collect(Collectors.toList());
+        return documentDAO.getAll().stream().map(DocConverter::toDocDTO).collect(Collectors.toList());
     }
 
     @Autowired
@@ -38,11 +43,12 @@ public class DocServiceImpl implements DocService {
         this.documentDAO = documentDAO;
     }
 
-    private DocEntity buildEntity(String name,String extension,  long size, String description) {
+    private DocEntity buildEntity(String storageId, String name, String extension, long size, String description) {
         DocEntity docEntity = new DocEntity();
         docEntity.setName(name);
         docEntity.setExtension(extension);
         docEntity.setSize(size);
+        docEntity.setStorageId(storageId);
 
         MetadataEntity metadataEntity = new MetadataEntity();
 
@@ -52,5 +58,10 @@ public class DocServiceImpl implements DocService {
 
 
         return docEntity;
+    }
+
+    private String getExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        return fileName.substring(dotIndex + 1);
     }
 }

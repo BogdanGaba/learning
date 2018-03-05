@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface DocService {
 
-    void saveDocument(String name,String extension,  long size, String Description);
+    DocDTO getById(String id);
+
+    void saveDocument(String storageFileId, String name, String originalName, long size, String Description);
 
     void removeDocument(String id);
 

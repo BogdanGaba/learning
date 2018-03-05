@@ -2,6 +2,7 @@ package com.testproject.docstore.dto;
 
 public class DocDTO {
     private String id;
+    private String storageId;
     private String name;
     private String extension;
     private long size;
@@ -13,6 +14,14 @@ public class DocDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getStorageId() {
+        return storageId;
+    }
+
+    public void setStorageId(String storageId) {
+        this.storageId = storageId;
     }
 
     public String getName() {

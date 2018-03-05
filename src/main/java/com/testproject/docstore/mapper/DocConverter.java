@@ -15,6 +15,7 @@ public final class DocConverter {
         dto.setSize(docEntity.getSize());
         dto.setName(docEntity.getName());
         dto.setId(docEntity.getId());
+        dto.setStorageId(docEntity.getStorageId());
 
         dto.setMetadata(MetadataConverter.toMetadataDTO(docEntity.getMetadataEntity()));
         return dto;
@@ -26,6 +27,7 @@ public final class DocConverter {
         entity.setExtension(docDTO.getExtension());
         entity.setName(docDTO.getName());
         entity.setSize(docDTO.getSize());
+        entity.setStorageId(docDTO.getStorageId());
 
         entity.setMetadataEntity(MetadataConverter.toMetadataEntity(docDTO.getMetadata()));
         entity.getMetadataEntity().setDocEntity(entity);

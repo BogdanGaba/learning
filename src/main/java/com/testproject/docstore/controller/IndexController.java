@@ -2,6 +2,7 @@ package com.testproject.docstore.controller;
 
 import com.testproject.docstore.dto.DocDTO;
 import com.testproject.docstore.service.DocService;
+import com.testproject.docstore.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +18,17 @@ import java.util.List;
 public class IndexController {
 
     private DocService docService;
+    private StorageService storageService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String index(HttpServletRequest request) {
         request.setAttribute("docs", docService.getAll());
-        request.setAttribute("test", "qwerty");
         return "index";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam("id") String id) {
+        storageService.removeFile(docService.getById(id).getStorageId());
         docService.removeDocument(id);
         return "redirect:/";
     }
@@ -34,5 +36,10 @@ public class IndexController {
     @Autowired
     public void setDocService(DocService docService) {
         this.docService = docService;
+    }
+
+    @Autowired
+    public void setStorageService(StorageService storageService) {
+        this.storageService = storageService;
     }
 }

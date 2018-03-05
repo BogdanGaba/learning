@@ -15,6 +15,8 @@ public class DocEntity implements Serializable {
     @GeneratedValue(generator = "uuid-generator")
     private String id;
 
+    private String storageId;
+
     private String name;
 
     private String extension;
@@ -33,6 +35,14 @@ public class DocEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getStorageId() {
+        return storageId;
+    }
+
+    public void setStorageId(String storageId) {
+        this.storageId = storageId;
     }
 
     public String getName() {
@@ -71,16 +81,18 @@ public class DocEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DocEntity entity = (DocEntity) o;
-        return size == entity.size &&
-                Objects.equals(id, entity.id) &&
-                Objects.equals(name, entity.name) &&
-                Objects.equals(extension, entity.extension);
+        DocEntity docEntity = (DocEntity) o;
+        return size == docEntity.size &&
+                Objects.equals(id, docEntity.id) &&
+                Objects.equals(storageId, docEntity.storageId) &&
+                Objects.equals(name, docEntity.name) &&
+                Objects.equals(extension, docEntity.extension) &&
+                Objects.equals(metadataEntity, docEntity.metadataEntity);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, extension, size);
+        return Objects.hash(id, storageId, name, extension, size, metadataEntity);
     }
 }
