@@ -13,7 +13,9 @@
                 <th>Type</th>
                 <th>Size</th>
                 <th>Description</th>
-                <th th:text="${test}"></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         <div th:each="doc : ${docs}">
             <tr>
@@ -21,12 +23,14 @@
                 <td th:text="${doc.extension}"></td>
                 <td th:text="${doc.size}"></td>
                 <td th:text="${doc.metadata.description}"></td>
+                <td><a th:href="@{upload/download(id=${doc.id})}">download</a></td>
+                <td>|</td>
                 <td><a th:href="@{delete(id=${doc.id})}">delete</a></td>
             </tr>
         </div>
         </table>
     </div>
-    <a href="/upload">Upload new file</a>
+    <a href="upload">Upload new file</a>
 </div>
 </body>
 </html>

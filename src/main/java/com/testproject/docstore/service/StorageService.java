@@ -9,4 +9,6 @@ public interface StorageService {
     String uploadFile(MultipartFile multipartFile);
 
     void removeFile(String storageId);
+
+    InputStream read(String storageId);
 }

@@ -4,10 +4,10 @@
 <div th:include="custom/fragments :: header"></div>
 
 <body>
-<a href="/">go to documents list</a>
+<a href="/DocStore">go to documents list</a>
 <div style="text-align: center">
     <h2>Upload new file</h2>
-    <form enctype="multipart/form-data" action="/upload" method="post">
+    <form enctype="multipart/form-data" action="upload" method="post">
         <input type="file" name="file" id="file"/>
         <input type="text" name="name" placeholder="Upload name"/>
         <textarea name="description" placeholder="Description"></textarea>
