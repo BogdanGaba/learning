@@ -47,8 +47,9 @@ public class FileUploadController {
         String fileName = docInfo.getName() + "." + docInfo.getExtension();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.add("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-
-        return new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.OK);
+        byte[] bytes = IOUtils.toByteArray(in);
+        in.close();
+        return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
     }
 
     @Autowired
