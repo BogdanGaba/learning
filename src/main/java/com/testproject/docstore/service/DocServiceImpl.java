@@ -1,6 +1,6 @@
 package com.testproject.docstore.service;
 
-import com.testproject.docstore.dao.DocumentDAO;
+import com.testproject.docstore.dao.DocumentRepository;
 import com.testproject.docstore.dto.DocDTO;
 import com.testproject.docstore.entity.DocEntity;
 import com.testproject.docstore.entity.MetadataEntity;
@@ -16,31 +16,31 @@ import java.util.stream.Collectors;
 @Transactional
 public class DocServiceImpl implements DocService {
 
-    private DocumentDAO documentDAO;
+    private DocumentRepository documentRepository;
 
     @Override
     public DocDTO getById(String id) {
-        return documentDAO.getById(id).map(DocConverter::toDocDTO).get();
+        return documentRepository.getById(id).map(DocConverter::toDocDTO).get();
     }
 
     @Override
     public void saveDocument(String storageId, String name, String originalName, long size, String description) {
-        documentDAO.save(buildEntity(storageId, name, getExtension(originalName), size, description));
+        documentRepository.save(buildEntity(storageId, name, getExtension(originalName), size, description));
     }
 
     @Override
     public void removeDocument(String id) {
-        documentDAO.removeById(id);
+        documentRepository.removeById(id);
     }
 
     @Override
     public List<DocDTO> getAll() {
-        return documentDAO.getAll().stream().map(DocConverter::toDocDTO).collect(Collectors.toList());
+        return documentRepository.getAll().stream().map(DocConverter::toDocDTO).collect(Collectors.toList());
     }
 
     @Autowired
-    public void setDocumentDAO(DocumentDAO documentDAO) {
-        this.documentDAO = documentDAO;
+    public void setDocumentRepository(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
     }
 
     private DocEntity buildEntity(String storageId, String name, String extension, long size, String description) {
@@ -55,7 +55,6 @@ public class DocServiceImpl implements DocService {
         metadataEntity.setDocEntity(docEntity);
         docEntity.setMetadataEntity(metadataEntity);
         metadataEntity.setDescription(description);
-
 
         return docEntity;
     }

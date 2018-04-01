@@ -1,7 +1,5 @@
 package com.testproject.docstore.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,8 +9,6 @@ import java.util.Objects;
 public class DocEntity implements Serializable {
 
     @Id
-    @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
-    @GeneratedValue(generator = "uuid-generator")
     private String id;
 
     private String storageId;
