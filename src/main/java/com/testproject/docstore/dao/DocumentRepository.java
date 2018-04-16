@@ -10,11 +10,8 @@ import java.util.Optional;
 @Repository
 public interface DocumentRepository extends CrudRepository<DocEntity,String> {
 
-    List<DocEntity> getAll();
+    List<DocEntity> findAll();
 
-    Optional<DocEntity> getById(String id);
+    Optional<DocEntity> findById(String id);
 
-//    void update(DocEntity entity);
-
-    void removeById(String id);
 }

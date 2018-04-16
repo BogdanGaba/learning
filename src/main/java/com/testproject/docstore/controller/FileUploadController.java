@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

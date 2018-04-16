@@ -20,7 +20,7 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public DocDTO getById(String id) {
-        return documentRepository.getById(id).map(DocConverter::toDocDTO).get();
+        return documentRepository.findById(id).map(DocConverter::toDocDTO).get();
     }
 
     @Override
@@ -30,12 +30,12 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public void removeDocument(String id) {
-        documentRepository.removeById(id);
+        documentRepository.deleteById(id);
     }
 
     @Override
     public List<DocDTO> getAll() {
-        return documentRepository.getAll().stream().map(DocConverter::toDocDTO).collect(Collectors.toList());
+        return documentRepository.findAll().stream().map(DocConverter::toDocDTO).collect(Collectors.toList());
     }
 
     @Autowired
