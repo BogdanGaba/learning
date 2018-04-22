@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,14 +28,15 @@ public class FileUploadController {
     private DocService docService;
     private StorageService storageService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public String upload() {
         return "upload";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping(consumes = "multipart/form-data")
-    public String doUpload(@RequestParam("file") MultipartFile file,
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String doUpload(@RequestParam MultipartFile file,
                            @RequestParam("name") String name,
                            @RequestParam("description") String description) {
         String id = storageService.uploadFile(file);

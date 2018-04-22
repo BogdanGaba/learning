@@ -4,6 +4,7 @@ import com.testproject.docstore.dto.DocDTO;
 import com.testproject.docstore.service.DocService;
 import com.testproject.docstore.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class IndexController {
         return "index";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam("id") String id) {
         storageService.removeFile(docService.getById(id).getStorageId());

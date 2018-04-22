@@ -13,8 +13,8 @@ import java.util.UUID;
 @Service
 public class StorageServiceImpl implements StorageService {
 
-    //    private final String STORAGE_PATH = "/home/gabik/storage"; // linux
-    private final String STORAGE_PATH = "d:\\storage"; // windows
+        private final String STORAGE_PATH = "/home/gabik/storage"; // linux
+//    private final String STORAGE_PATH = "d:\\storage"; // windows
 
     private final String DELIMITER = File.separator;
 
